@@ -32,25 +32,20 @@ function ChatPage() {
           }
         );
         setNewMessage("");
-        // Add the new message to the messages state
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: newMessage },
-        ]);
+        fetchMessages();
       }
     } catch (error) {
       console.error(error);
-      // Display an error message to the user
       alert("Failed to send message. Please try again later.");
     }
   };
 
   useEffect(() => {
-    // Fetch messages only if the messages state is empty
     if (messages.length === 0) {
       fetchMessages();
     }
-  }, [fetchMessages, messages]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchMessages]);
 
   return (
     <div>

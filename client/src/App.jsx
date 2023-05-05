@@ -20,7 +20,14 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
 
-        <Route path="/chat" element={<ChatPage />} />
+        <Route
+          path="/chat"
+          element={
+            <IsPrivate>
+              <ChatPage />
+            </IsPrivate>
+          }
+        />
 
         <Route
           path="/profile"

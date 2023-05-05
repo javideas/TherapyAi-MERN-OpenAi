@@ -1,4 +1,4 @@
-import "./SignupPage.css";
+import "../Styles.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
@@ -20,17 +20,6 @@ function SignupPage() {
     // Create an object representing the request body
     const requestBody = { email, password, name };
 
-    // Send a request to the server using axios
-    /* 
-    const authToken = localStorage.getItem("authToken");
-    axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/auth/signup`, 
-      requestBody, 
-      { headers: { Authorization: `Bearer ${authToken}` },
-    })
-    .then((response) => {})
-    */
-
     // Or using a service
     authService
       .signup(requestBody)
@@ -46,31 +35,55 @@ function SignupPage() {
   };
 
   return (
-    <div className="SignupPage">
-      <h1>Sign Up</h1>
+    <div className="container">
+      <div className="card mt-5">
+        <div className="card-header">Sign Up</div>
+        <div className="card-body">
+          <form onSubmit={handleSignupSubmit}>
+            <div className="input-group mb-3">
+              <span className="input-group-text">Email:</span>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleEmail}
+                className="form-control"
+              />
+            </div>
 
-      <form onSubmit={handleSignupSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
+            <div className="input-group mb-3">
+              <span className="input-group-text">Password:</span>
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={handlePassword}
+                className="form-control"
+              />
+            </div>
 
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
+            <div className="input-group mb-3">
+              <span className="input-group-text">Name:</span>
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleName}
+                className="form-control"
+              />
+            </div>
 
-        <label>Name:</label>
-        <input type="text" name="name" value={name} onChange={handleName} />
+            <button type="submit" className="btn btn-primary">
+              Sign Up
+            </button>
+          </form>
 
-        <button type="submit">Sign Up</button>
-      </form>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <p>Already have account?</p>
-      <Link to={"/login"}> Login</Link>
+          <p>Already have an account?</p>
+          <Link to={"/login"}> Login</Link>
+        </div>
+      </div>
     </div>
   );
 }
